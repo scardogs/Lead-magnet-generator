@@ -222,8 +222,8 @@ export default function PlanClosingSequence({ onComplete }) {
             borderColor={borderColor}
           >
             <CardBody>
-              <VStack spacing={4} align="stretch">
-                <HStack spacing={4} justify="center">
+              <Flex justify="space-between" align="left">
+                <HStack spacing={4}>
                   <Button
                     size="sm"
                     variant="outline"
@@ -241,7 +241,6 @@ export default function PlanClosingSequence({ onComplete }) {
                   >
                     {isSaved ? "Saved!" : "Save Step"}
                   </Button>
-
                   <Button
                     size="sm"
                     variant="outline"
@@ -257,8 +256,7 @@ export default function PlanClosingSequence({ onComplete }) {
                     Save & Continue
                   </Button>
                 </HStack>
-
-                <HStack spacing={2} justify="center">
+                <HStack spacing={2}>
                   <Badge
                     colorScheme="green"
                     variant="subtle"
@@ -269,7 +267,7 @@ export default function PlanClosingSequence({ onComplete }) {
                     ✓ Self-tests passed
                   </Badge>
                 </HStack>
-              </VStack>
+              </Flex>
             </CardBody>
           </Card>
         </VStack>
