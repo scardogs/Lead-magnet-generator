@@ -53,12 +53,12 @@ export default function HomePageTab({
   const [apiKey, setApiKey] = useState("sk-...");
   const [selectedModel, setSelectedModel] = useState("gpt-4o-mini");
 
-  const sidebarBg = useColorModeValue("gray.50", "gray.900");
-  const cardBg = useColorModeValue("white", "gray.800");
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const subTextColor = useColorModeValue("gray.600", "gray.300");
-  const borderColor = useColorModeValue("gray.400", "gray.400");
-  const shadowColor = useColorModeValue("gray.200", "gray.200");
+  const sidebarBg = "gray.50";
+  const cardBg = "white";
+  const textColor = "gray.800";
+  const subTextColor = "gray.600";
+  const borderColor = "gray.200";
+  const shadowColor = "gray.200";
   const router = useRouter();
 
   return (
@@ -68,7 +68,11 @@ export default function HomePageTab({
       bg={sidebarBg}
       borderRight={{ base: "none", md: "1px solid" }}
       borderBottom={{ base: "1px solid", md: "none" }}
-      borderColor={borderColor}
+      borderColor="gray.400"
+      sx={{
+        borderRightColor: "gray.300 !important",
+        borderBottomColor: "gray.400 !important",
+      }}
       p={{ base: 4, md: 6 }}
       overflowY="hidden"
       boxShadow={{ base: "sm", md: "2xl" }}
@@ -76,7 +80,7 @@ export default function HomePageTab({
       transition="all 0.3s ease"
       _hover={{
         boxShadow: { base: "md", md: "3xl" },
-        borderColor: "gray.200",
+        borderColor: "gray.300",
       }}
     >
       <VStack
@@ -129,6 +133,8 @@ export default function HomePageTab({
                       value={apiKey}
                       onChange={(e) => setApiKey(e.target.value)}
                       placeholder="sk-..."
+                      placeholderColor="gray.500"
+                      color="gray.800"
                       fontSize="xs"
                       borderRadius="lg"
                       border="1px"
@@ -145,6 +151,7 @@ export default function HomePageTab({
                           variant="ghost"
                           icon={<WarningIcon color="red.400" />}
                           aria-label="Error indicator"
+                          color="red.400"
                           _hover={{
                             bg: "red.50",
                             transform: "scale(1.1)",
@@ -154,9 +161,16 @@ export default function HomePageTab({
                         <IconButton
                           size="xs"
                           variant="ghost"
-                          icon={showApiKey ? <ViewOffIcon /> : <ViewIcon />}
+                          icon={
+                            showApiKey ? (
+                              <ViewOffIcon color="gray.600" />
+                            ) : (
+                              <ViewIcon color="gray.600" />
+                            )
+                          }
                           onClick={() => setShowApiKey(!showApiKey)}
                           aria-label="Toggle visibility"
+                          color="gray.600"
                           _hover={{
                             bg: "pink.50",
                             transform: "scale(1.1)",
@@ -167,8 +181,9 @@ export default function HomePageTab({
                           <IconButton
                             size="xs"
                             variant="ghost"
-                            icon={<QuestionIcon />}
+                            icon={<QuestionIcon color="blue.500" />}
                             aria-label="Help"
+                            color="blue.500"
                             _hover={{
                               bg: "blue.50",
                               transform: "scale(1.1)",
@@ -194,6 +209,9 @@ export default function HomePageTab({
                     <Input
                       value={selectedModel}
                       onChange={(e) => setSelectedModel(e.target.value)}
+                      placeholder="Select model..."
+                      placeholderColor="gray.500"
+                      color="gray.800"
                       fontSize="xs"
                       borderRadius="lg"
                       border="1px"
@@ -208,8 +226,9 @@ export default function HomePageTab({
                         <IconButton
                           size="xs"
                           variant="ghost"
-                          icon={<QuestionIcon />}
+                          icon={<QuestionIcon color="blue.500" />}
                           aria-label="Help"
+                          color="blue.500"
                           _hover={{
                             bg: "blue.50",
                             transform: "scale(1.1)",
@@ -326,6 +345,8 @@ export default function HomePageTab({
                   size="sm"
                   variant={index === currentStep ? "solid" : "ghost"}
                   colorScheme={index === currentStep ? "pink" : "gray"}
+                  color={index === currentStep ? "white" : "gray.700"}
+                  bg={index === currentStep ? "pink.500" : "transparent"}
                   justifyContent="flex-start"
                   fontWeight="normal"
                   fontSize="xs"
@@ -336,6 +357,7 @@ export default function HomePageTab({
                   onClick={() => onStepChange(index)}
                   _hover={{
                     bg: index === currentStep ? "pink.500" : "gray.50",
+                    color: index === currentStep ? "white" : "gray.800",
                     transform: "translateX(4px) scale(1.02)",
                     shadow: "md",
                   }}

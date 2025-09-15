@@ -11,13 +11,10 @@ import { useRouter } from "next/router";
 
 export default function Navbar() {
   const router = useRouter();
-  const inactiveColor = useColorModeValue("gray.600", "gray.300");
+  const inactiveColor = "gray.600";
   const navBg = "white";
   const navBorder = "black";
-  const navShadow = useColorModeValue(
-    "0 2px 16px rgba(0,0,0,0.08)",
-    "0 2px 16px rgba(0,0,0,0.32)"
-  );
+  const navShadow = "0 2px 16px rgba(0,0,0,0.08)";
 
   return (
     <Box

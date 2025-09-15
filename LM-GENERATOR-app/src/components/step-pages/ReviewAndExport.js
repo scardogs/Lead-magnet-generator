@@ -35,11 +35,11 @@ export default function ReviewAndExport({ onComplete }) {
   const [aiQuestion, setAiQuestion] = useState("");
   const [selectedExports, setSelectedExports] = useState([]);
 
-  const bgColor = useColorModeValue("gray.50", "gray.900");
-  const cardBg = useColorModeValue("white", "gray.800");
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const subTextColor = useColorModeValue("gray.600", "gray.300");
-  const borderColor = useColorModeValue("gray.200", "gray.600");
+  const bgColor = "gray.50";
+  const cardBg = "white";
+  const textColor = "gray.800";
+  const subTextColor = "gray.600";
+  const borderColor = "gray.200";
 
   const exportOptions = [
     "PDF Document",
@@ -115,6 +115,8 @@ export default function ReviewAndExport({ onComplete }) {
             <FormControl>
               <Input
                 placeholder="Ask AI anything about reviewing and exporting..."
+                placeholderColor="gray.500"
+                color="gray.800"
                 value={aiQuestion}
                 onChange={(e) => setAiQuestion(e.target.value)}
                 size="lg"
@@ -222,6 +224,8 @@ export default function ReviewAndExport({ onComplete }) {
               <Divider />
               <Textarea
                 placeholder="Add your final review notes, adjustments, and launch preparation checklist here..."
+                placeholderColor="gray.500"
+                color="gray.800"
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 minH="300px"

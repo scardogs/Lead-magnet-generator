@@ -26,11 +26,11 @@ export default function DefineIdealClient({ onComplete }) {
   const [draft, setDraft] = useState("");
   const [aiQuestion, setAiQuestion] = useState("");
 
-  const bgColor = useColorModeValue("gray.50", "gray.900");
-  const cardBg = useColorModeValue("white", "gray.800");
-  const textColor = useColorModeValue("gray.800", "gray.100");
-  const subTextColor = useColorModeValue("gray.600", "gray.300");
-  const borderColor = useColorModeValue("gray.200", "gray.600");
+  const bgColor = "gray.50";
+  const cardBg = "white";
+  const textColor = "gray.800";
+  const subTextColor = "gray.600";
+  const borderColor = "gray.200";
 
   return (
     <Box p={{ base: 4, md: 8 }} bg={bgColor} minH="100vh">
@@ -101,6 +101,8 @@ export default function DefineIdealClient({ onComplete }) {
             <FormControl>
               <Input
                 placeholder="Ask AI anything about defining your ideal client..."
+                placeholderColor="gray.500"
+                color="gray.800"
                 value={aiQuestion}
                 onChange={(e) => setAiQuestion(e.target.value)}
                 size="lg"
@@ -165,6 +167,8 @@ export default function DefineIdealClient({ onComplete }) {
               <Divider />
               <Textarea
                 placeholder="Start defining your ideal client here..."
+                placeholderColor="gray.500"
+                color="gray.800"
                 value={draft}
                 onChange={(e) => setDraft(e.target.value)}
                 minH="350px"
