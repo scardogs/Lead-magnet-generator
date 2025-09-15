@@ -20,11 +20,18 @@ import {
   Icon,
   Flex,
 } from "@chakra-ui/react";
-import { FaHandshake, FaQuestionCircle, FaEdit } from "react-icons/fa";
+import {
+  FaHandshake,
+  FaQuestionCircle,
+  FaEdit,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 export default function PlanClosingSequence({ onComplete }) {
   const [draft, setDraft] = useState("");
   const [aiQuestion, setAiQuestion] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const bgColor = "gray.50";
   const cardBg = "white";
@@ -32,9 +39,19 @@ export default function PlanClosingSequence({ onComplete }) {
   const subTextColor = "gray.600";
   const borderColor = "gray.200";
 
+  const handleSaveStep = async () => {
+    setIsSaving(true);
+    // Simulate save operation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsSaving(false);
+    setIsSaved(true);
+    // Reset saved state after 3 seconds
+    setTimeout(() => setIsSaved(false), 3000);
+  };
+
   return (
     <Box p={8} bg={bgColor} minH="100vh">
-      <VStack spacing={8} align="stretch" maxW="5xl" mx="auto">
+      <VStack spacing={2} align="stretch" maxW="5xl" mx="auto">
         {/* Header Section */}
         <Card
           bg={cardBg}
@@ -48,17 +65,13 @@ export default function PlanClosingSequence({ onComplete }) {
               <Icon as={FaHandshake} color="pink.400" boxSize={6} />
               <Box>
                 <Heading size="xl" color={textColor} mb={1}>
-                  Sigrun AI Launch Assistant
+                  VIP Scale AI Launch Assistant
                 </Heading>
                 <HStack spacing={2}>
                   <Text fontSize="md" color={subTextColor}>
                     Step-by-step
                   </Text>
-                  <Badge
-                    colorScheme="pink"
-                    variant="subtle"
-                    borderRadius="full"
-                  >
+                  <Badge colorScheme="pink" variant="subtle" borderRadius="lg">
                     Step 7 of 8
                   </Badge>
                 </HStack>
@@ -105,6 +118,12 @@ export default function PlanClosingSequence({ onComplete }) {
                 borderRadius="lg"
                 border="2px"
                 borderColor={borderColor}
+                sx={{
+                  "&::placeholder": {
+                    color: "gray.500 !important",
+                    opacity: 1,
+                  },
+                }}
                 _focus={{
                   borderColor: "blue.400",
                   boxShadow: "0 0 0 1px var(--chakra-colors-blue-400)",
@@ -170,6 +189,12 @@ export default function PlanClosingSequence({ onComplete }) {
                 borderRadius="lg"
                 border="2px"
                 borderColor={borderColor}
+                sx={{
+                  "&::placeholder": {
+                    color: "gray.500 !important",
+                    opacity: 1,
+                  },
+                }}
                 _focus={{
                   borderColor: "green.400",
                   boxShadow: "0 0 0 1px var(--chakra-colors-green-400)",
@@ -190,43 +215,54 @@ export default function PlanClosingSequence({ onComplete }) {
           borderColor={borderColor}
         >
           <CardBody>
-            <Flex justify="space-between" align="center">
-              <HStack spacing={4}>
+            <VStack spacing={4} align="stretch">
+              <HStack spacing={4} justify="center">
                 <Button
-                  colorScheme="gray"
+                  size="sm"
                   variant="outline"
-                  size="lg"
-                  borderRadius="lg"
-                  border="2px"
-                >
-                  Save Step
-                </Button>
-                <Button
                   colorScheme="pink"
-                  size="lg"
+                  onClick={handleSaveStep}
+                  isLoading={isSaving}
+                  loadingText="Saving..."
+                  leftIcon={isSaved ? <FaCheckCircle /> : null}
                   borderRadius="lg"
-                  onClick={onComplete}
                   _hover={{
                     transform: "translateY(-1px)",
-                    boxShadow: "lg",
+                    boxShadow: "md",
+                  }}
+                  transition="all 0.2s"
+                >
+                  {isSaved ? "Saved!" : "Save Step"}
+                </Button>
+
+                <Button
+                  size="sm"
+                  variant="outline"
+                  colorScheme="pink"
+                  onClick={onComplete}
+                  borderRadius="lg"
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "md",
                   }}
                   transition="all 0.2s"
                 >
                   Save & Continue
                 </Button>
               </HStack>
-              <HStack spacing={2}>
+
+              <HStack spacing={2} justify="center">
                 <Badge
                   colorScheme="green"
                   variant="subtle"
-                  borderRadius="full"
+                  borderRadius="lg"
                   px={3}
                   py={1}
                 >
                   ✓ Self-tests passed
                 </Badge>
               </HStack>
-            </Flex>
+            </VStack>
           </CardBody>
         </Card>
       </VStack>

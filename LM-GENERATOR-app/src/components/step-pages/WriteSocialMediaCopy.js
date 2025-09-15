@@ -7,7 +7,6 @@ import {
   Button,
   VStack,
   HStack,
-  useColorModeValue,
   Input,
   FormControl,
   FormLabel,
@@ -20,11 +19,18 @@ import {
   Icon,
   Flex,
 } from "@chakra-ui/react";
-import { FaShareAlt, FaQuestionCircle, FaEdit } from "react-icons/fa";
+import {
+  FaShareAlt,
+  FaQuestionCircle,
+  FaEdit,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 export default function WriteSocialMediaCopy({ onComplete }) {
   const [draft, setDraft] = useState("");
   const [aiQuestion, setAiQuestion] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const bgColor = "gray.50";
   const cardBg = "white";
@@ -32,9 +38,19 @@ export default function WriteSocialMediaCopy({ onComplete }) {
   const subTextColor = "gray.600";
   const borderColor = "gray.200";
 
+  const handleSaveStep = async () => {
+    setIsSaving(true);
+    // Simulate save operation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsSaving(false);
+    setIsSaved(true);
+    // Reset saved state after 3 seconds
+    setTimeout(() => setIsSaved(false), 3000);
+  };
+
   return (
     <Box p={8} bg={bgColor} minH="100vh">
-      <VStack spacing={8} align="stretch" maxW="5xl" mx="auto">
+      <VStack spacing={2} align="stretch" maxW="5xl" mx="auto">
         {/* Header Section */}
         <Card
           bg={cardBg}
@@ -48,17 +64,17 @@ export default function WriteSocialMediaCopy({ onComplete }) {
               <Icon as={FaShareAlt} color="pink.400" boxSize={6} />
               <Box>
                 <Heading size="xl" color={textColor} mb={1}>
-                  Sigrun AI Launch Assistant
+                  VIP Scale AI Launch Assistant
                 </Heading>
                 <HStack spacing={2}>
-                  <Text fontSize="md" color={subTextColor}>
+                  <Text
+                    fontSize="md"
+                    color={subTextColor}
+                    sx={{ color: "gray.600 !important" }}
+                  >
                     Step-by-step
                   </Text>
-                  <Badge
-                    colorScheme="pink"
-                    variant="subtle"
-                    borderRadius="full"
-                  >
+                  <Badge colorScheme="pink" variant="subtle" borderRadius="lg">
                     Step 5 of 8
                   </Badge>
                 </HStack>
@@ -69,7 +85,11 @@ export default function WriteSocialMediaCopy({ onComplete }) {
             <Heading size="lg" color={textColor} mb={2}>
               Write Social Media Copy
             </Heading>
-            <Text color={subTextColor} fontSize="md">
+            <Text
+              color={subTextColor}
+              fontSize="md"
+              sx={{ color: "gray.600 !important" }}
+            >
               Create engaging social media content that builds awareness and
               drives traffic. Develop posts, captions, and stories that resonate
               with your audience.
@@ -105,12 +125,22 @@ export default function WriteSocialMediaCopy({ onComplete }) {
                 borderRadius="lg"
                 border="2px"
                 borderColor={borderColor}
+                sx={{
+                  "&::placeholder": {
+                    color: "gray.500 !important",
+                    opacity: 1,
+                  },
+                }}
                 _focus={{
                   borderColor: "blue.400",
                   boxShadow: "0 0 0 1px var(--chakra-colors-blue-400)",
                 }}
               />
-              <FormHelperText color={subTextColor} mt={2}>
+              <FormHelperText
+                color={subTextColor}
+                mt={2}
+                sx={{ color: "gray.600 !important" }}
+              >
                 💡 Get AI assistance with platform-specific content, hashtag
                 strategies, and engagement tactics
               </FormHelperText>
@@ -142,6 +172,7 @@ export default function WriteSocialMediaCopy({ onComplete }) {
                   color={subTextColor}
                   mb={2}
                   fontWeight="medium"
+                  sx={{ color: "gray.600 !important" }}
                 >
                   Social Media Content Types:
                 </Text>
@@ -150,6 +181,7 @@ export default function WriteSocialMediaCopy({ onComplete }) {
                   align="stretch"
                   fontSize="sm"
                   color={subTextColor}
+                  sx={{ color: "gray.600 !important" }}
                 >
                   <Text>• Facebook Posts (Engaging stories and updates)</Text>
                   <Text>• Instagram Captions (Visual storytelling)</Text>
@@ -170,6 +202,12 @@ export default function WriteSocialMediaCopy({ onComplete }) {
                 borderRadius="lg"
                 border="2px"
                 borderColor={borderColor}
+                sx={{
+                  "&::placeholder": {
+                    color: "gray.500 !important",
+                    opacity: 1,
+                  },
+                }}
                 _focus={{
                   borderColor: "green.400",
                   boxShadow: "0 0 0 1px var(--chakra-colors-green-400)",
@@ -190,27 +228,47 @@ export default function WriteSocialMediaCopy({ onComplete }) {
           borderColor={borderColor}
         >
           <CardBody>
-            <Flex justify="space-between" align="center">
-              <HStack spacing={4}>
+            <Flex
+              justify="space-between"
+              align="center"
+              direction={{ base: "column", md: "row" }}
+              gap={{ base: 4, md: 0 }}
+            >
+              <HStack
+                spacing={4}
+                w={{ base: "full", md: "auto" }}
+                justify={{ base: "center", md: "flex-start" }}
+              >
                 <Button
-                  colorScheme="gray"
+                  size="sm"
                   variant="outline"
-                  size="lg"
-                  borderRadius="lg"
-                  border="2px"
-                >
-                  Save Step
-                </Button>
-                <Button
                   colorScheme="pink"
-                  size="lg"
+                  onClick={handleSaveStep}
+                  isLoading={isSaving}
+                  loadingText="Saving..."
+                  leftIcon={isSaved ? <FaCheckCircle /> : null}
                   borderRadius="lg"
-                  onClick={onComplete}
                   _hover={{
                     transform: "translateY(-1px)",
-                    boxShadow: "lg",
+                    boxShadow: "md",
                   }}
                   transition="all 0.2s"
+                  w={{ base: "full", md: "auto" }}
+                >
+                  {isSaved ? "Saved!" : "Save Step"}
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  colorScheme="pink"
+                  onClick={onComplete}
+                  borderRadius="lg"
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "md",
+                  }}
+                  transition="all 0.2s"
+                  w={{ base: "full", md: "auto" }}
                 >
                   Save & Continue
                 </Button>
@@ -219,7 +277,7 @@ export default function WriteSocialMediaCopy({ onComplete }) {
                 <Badge
                   colorScheme="green"
                   variant="subtle"
-                  borderRadius="full"
+                  borderRadius="lg"
                   px={3}
                   py={1}
                 >

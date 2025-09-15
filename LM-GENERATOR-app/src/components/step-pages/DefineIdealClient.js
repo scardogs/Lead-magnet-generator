@@ -20,11 +20,18 @@ import {
   Icon,
   Flex,
 } from "@chakra-ui/react";
-import { FaUser, FaQuestionCircle, FaEdit } from "react-icons/fa";
+import {
+  FaUser,
+  FaQuestionCircle,
+  FaEdit,
+  FaCheckCircle,
+} from "react-icons/fa";
 
 export default function DefineIdealClient({ onComplete }) {
   const [draft, setDraft] = useState("");
   const [aiQuestion, setAiQuestion] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
 
   const bgColor = "gray.50";
   const cardBg = "white";
@@ -32,9 +39,19 @@ export default function DefineIdealClient({ onComplete }) {
   const subTextColor = "gray.600";
   const borderColor = "gray.200";
 
+  const handleSaveStep = async () => {
+    setIsSaving(true);
+    // Simulate save operation
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    setIsSaving(false);
+    setIsSaved(true);
+    // Reset saved state after 3 seconds
+    setTimeout(() => setIsSaved(false), 3000);
+  };
+
   return (
     <Box p={{ base: 4, md: 8 }} bg={bgColor} minH="100vh">
-      <VStack spacing={{ base: 6, md: 8 }} align="stretch" maxW="5xl" mx="auto">
+      <VStack spacing={2} align="stretch" maxW="5xl" mx="auto">
         {/* Header Section */}
         <Card
           bg={cardBg}
@@ -52,17 +69,13 @@ export default function DefineIdealClient({ onComplete }) {
                   color={textColor}
                   mb={1}
                 >
-                  Sigrun AI Launch Assistant
+                  VIP Scale AI Launch Assistant
                 </Heading>
                 <HStack spacing={2}>
                   <Text fontSize="md" color={subTextColor}>
                     Step-by-step
                   </Text>
-                  <Badge
-                    colorScheme="pink"
-                    variant="subtle"
-                    borderRadius="full"
-                  >
+                  <Badge colorScheme="pink" variant="subtle" borderRadius="lg">
                     Step 1 of 8
                   </Badge>
                 </HStack>
@@ -109,6 +122,12 @@ export default function DefineIdealClient({ onComplete }) {
                 borderRadius="lg"
                 border="2px"
                 borderColor={borderColor}
+                sx={{
+                  "&::placeholder": {
+                    color: "gray.500 !important",
+                    opacity: 1,
+                  },
+                }}
                 _focus={{
                   borderColor: "blue.400",
                   boxShadow: "0 0 0 1px var(--chakra-colors-blue-400)",
@@ -176,6 +195,12 @@ export default function DefineIdealClient({ onComplete }) {
                 borderRadius="lg"
                 border="2px"
                 borderColor={borderColor}
+                sx={{
+                  "&::placeholder": {
+                    color: "gray.500 !important",
+                    opacity: 1,
+                  },
+                }}
                 _focus={{
                   borderColor: "green.400",
                   boxShadow: "0 0 0 1px var(--chakra-colors-green-400)",
@@ -196,66 +221,56 @@ export default function DefineIdealClient({ onComplete }) {
           borderColor={borderColor}
         >
           <CardBody>
-            <Flex justify="space-between" align="center">
-              <Box display={{ base: "block", sm: "none" }}>
-                <VStack spacing={2}>
-                  <Button
-                    colorScheme="gray"
-                    variant="outline"
-                    size="md"
-                    borderRadius="lg"
-                    border="2px"
-                    w="full"
-                  >
-                    Save Step
-                  </Button>
-                  <Button
-                    colorScheme="pink"
-                    size="md"
-                    borderRadius="lg"
-                    onClick={onComplete}
-                    w="full"
-                    _hover={{
-                      transform: "translateY(-1px)",
-                      boxShadow: "lg",
-                    }}
-                    transition="all 0.2s"
-                  >
-                    Save & Continue
-                  </Button>
-                </VStack>
-              </Box>
-              <Box display={{ base: "none", sm: "block" }}>
-                <HStack spacing={4}>
-                  <Button
-                    colorScheme="gray"
-                    variant="outline"
-                    size="lg"
-                    borderRadius="lg"
-                    border="2px"
-                  >
-                    Save Step
-                  </Button>
-                  <Button
-                    colorScheme="pink"
-                    size="lg"
-                    borderRadius="lg"
-                    onClick={onComplete}
-                    _hover={{
-                      transform: "translateY(-1px)",
-                      boxShadow: "lg",
-                    }}
-                    transition="all 0.2s"
-                  >
-                    Save & Continue
-                  </Button>
-                </HStack>
-              </Box>
+            <Flex
+              justify="space-between"
+              align="center"
+              direction={{ base: "column", md: "row" }}
+              gap={{ base: 4, md: 0 }}
+            >
+              <HStack
+                spacing={4}
+                w={{ base: "full", md: "auto" }}
+                justify={{ base: "center", md: "flex-start" }}
+              >
+                <Button
+                  colorScheme={isSaved ? "green" : "gray"}
+                  variant={isSaved ? "solid" : "outline"}
+                  size={{ base: "md", md: "lg" }}
+                  borderRadius="lg"
+                  border="2px"
+                  onClick={handleSaveStep}
+                  isLoading={isSaving}
+                  loadingText="Saving..."
+                  leftIcon={isSaved ? <FaCheckCircle /> : null}
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "md",
+                  }}
+                  transition="all 0.2s"
+                  w={{ base: "full", md: "auto" }}
+                >
+                  {isSaved ? "Saved!" : "Save Step"}
+                </Button>
+                <Button
+                  colorScheme="pink"
+                  size={{ base: "md", md: "lg" }}
+                  borderRadius="lg"
+                  onClick={onComplete}
+                  _hover={{
+                    transform: "translateY(-1px)",
+                    boxShadow: "lg",
+                  }}
+                  transition="all 0.2s"
+                  w={{ base: "full", md: "auto" }}
+                >
+                  Save & Continue
+                </Button>
+              </HStack>
               <HStack spacing={2}>
                 <Badge
                   colorScheme="green"
                   variant="subtle"
-                  borderRadius="full"
+                  borderRadius="lg"
                   px={3}
                   py={1}
                 >
