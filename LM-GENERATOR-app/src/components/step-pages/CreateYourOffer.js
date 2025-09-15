@@ -70,9 +70,9 @@ export default function CreateYourOffer({ onComplete }) {
               Create Your Offer
             </Heading>
             <Text color={subTextColor} fontSize="md">
-              Craft a compelling offer that solves your ideal client's problems.
-              Define what you're providing, its value, and why it's
-              irresistible.
+              Craft a compelling offer that solves your ideal client&apos;s
+              problems. Define what you&apos;re providing, its value, and why
+              it&apos;s irresistible.
             </Text>
           </CardBody>
         </Card>
@@ -150,16 +150,17 @@ export default function CreateYourOffer({ onComplete }) {
                   color={subTextColor}
                 >
                   <Text>
-                    • What's your core offer? (Product/service description)
+                    • What&apos;s your core offer? (Product/service description)
                   </Text>
                   <Text>
-                    • What's included? (Features, bonuses, deliverables)
+                    • What&apos;s included? (Features, bonuses, deliverables)
                   </Text>
                   <Text>
-                    • What's the value proposition? (Benefits and outcomes)
+                    • What&apos;s the value proposition? (Benefits and outcomes)
                   </Text>
                   <Text>
-                    • What's the price? (Pricing strategy and payment options)
+                    • What&apos;s the price? (Pricing strategy and payment
+                    options)
                   </Text>
                   <Text>• Why is it irresistible? (Unique selling points)</Text>
                 </VStack>

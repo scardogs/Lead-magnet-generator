@@ -150,7 +150,9 @@ export default function WriteSalesPageCopy({ onComplete }) {
                   color={subTextColor}
                 >
                   <Text>• Headline & Subheadline (Attention-grabbing)</Text>
-                  <Text>• Benefits & Features (What's in it for them)</Text>
+                  <Text>
+                    • Benefits & Features (What&apos;s in it for them)
+                  </Text>
                   <Text>
                     • Social Proof (Testimonials, reviews, case studies)
                   </Text>

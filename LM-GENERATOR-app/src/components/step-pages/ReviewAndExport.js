@@ -89,7 +89,8 @@ export default function ReviewAndExport({ onComplete }) {
             </Heading>
             <Text color={subTextColor} fontSize="md">
               Review all your work, make final adjustments, and export your
-              complete launch strategy. You're ready to launch your campaign!
+              complete launch strategy. You&apos;re ready to launch your
+              campaign!
             </Text>
           </CardBody>
         </Card>
@@ -152,7 +153,8 @@ export default function ReviewAndExport({ onComplete }) {
           <CardBody pt={0}>
             <VStack spacing={4} align="stretch">
               <Text fontSize="sm" color={subTextColor} mb={2}>
-                Select the formats you'd like to export your launch strategy in:
+                Select the formats you&apos;d like to export your launch
+                strategy in:
               </Text>
               <CheckboxGroup
                 value={selectedExports}
